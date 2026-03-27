@@ -6,8 +6,7 @@ Ambiente simples para atividades com PHP e MySQL no GitHub Codespaces.
 - PHP 8.2 com Apache
 - MariaDB/MySQL no mesmo container
 - Cliente `mysql` no terminal
-- Sem banco criado automaticamente
-- Página inicial com "Olá Mundo"
+- Página exemplo com "Olá Mundo"
 
 ## Como usar
 1. Crie uma cópia deste repositório
