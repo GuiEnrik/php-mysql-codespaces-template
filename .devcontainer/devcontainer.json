@@ -1,0 +1,24 @@
+{
+  "name": "Servidor Web PHP + MySQL",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "forwardPorts": [80, 3306],
+  "portsAttributes": {
+    "80": {
+      "label": "Aplicação PHP e phpMyAdmin"
+    },
+    "3306": {
+      "label": "MySQL"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "bmewburn.vscode-intelephense-client",
+        "xdebug.php-debug",
+        "cweijan.vscode-mysql-client2"
+      ]
+    }
+  }
+}
