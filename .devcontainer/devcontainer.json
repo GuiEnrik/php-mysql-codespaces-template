@@ -3,6 +3,7 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
+  "postStartCommand": "bash .devcontainer/start-codespace-services.sh",
   "forwardPorts": [80, 3306],
   "portsAttributes": {
     "80": {
