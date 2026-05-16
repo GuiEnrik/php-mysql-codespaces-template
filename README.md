@@ -44,7 +44,6 @@ phpMyAdmin:
 https://NOME-DO-CODESPACE-80.app.github.dev/phpmyadmin/
 ```
 
-
 No phpMyAdmin, entre com o usuário `root` e deixe o campo de senha vazio.
 
 Nenhum banco de dados é criado automaticamente. Crie o banco pelo phpMyAdmin ou pelo terminal.
@@ -85,7 +84,7 @@ mysql -u root
 Para criar um banco de dados pelo terminal:
 
 ```bash
-CREATE DATABASE nome_do_banco;
+mysql -u root -e "CREATE DATABASE nome_do_banco;"
 ```
 
 ## Exemplo de conexao PHP
