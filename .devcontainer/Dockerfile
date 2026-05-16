@@ -34,7 +34,8 @@ RUN printf '%s\n' \
     '$i = 0;' \
     '$i++;' \
     "\$cfg['Servers'][\$i]['auth_type'] = 'cookie';" \
-    "\$cfg['Servers'][\$i]['host'] = 'localhost';" \
+    "\$cfg['Servers'][\$i]['host'] = '127.0.0.1';" \
+    "\$cfg['Servers'][\$i]['port'] = '3306';" \
     "\$cfg['Servers'][\$i]['compress'] = false;" \
     "\$cfg['Servers'][\$i]['AllowNoPassword'] = true;" \
     "\$cfg['TempDir'] = '/opt/phpmyadmin/tmp';" \
