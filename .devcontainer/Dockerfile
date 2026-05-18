@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
 
 RUN sed -ri 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf && \
     sed -ri 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf && \
-    a2enmod rewrite
+    a2enmod rewrite remoteip
 
 RUN curl -fsSL "https://files.phpmyadmin.net/phpMyAdmin/${PHPMYADMIN_VERSION}/phpMyAdmin-${PHPMYADMIN_VERSION}-all-languages.tar.gz" -o /tmp/phpmyadmin.tar.gz && \
     mkdir -p /opt/phpmyadmin && \
@@ -40,6 +40,13 @@ RUN printf '%s\n' \
     "\$cfg['Servers'][\$i]['AllowNoPassword'] = true;" \
     "\$cfg['TempDir'] = '/opt/phpmyadmin/tmp';" \
     > /opt/phpmyadmin/config.inc.php
+
+RUN printf '%s\n' \
+    'RemoteIPHeader X-Forwarded-For' \
+    'RemoteIPTrustedProxy 127.0.0.0/8' \
+    'RemoteIPTrustedProxy ::1' \
+    > /etc/apache2/conf-available/remoteip.conf && \
+    a2enconf remoteip
 
 RUN printf '%s\n' \
     'RedirectMatch 302 ^/phpmyadmin$ /phpmyadmin/' \
