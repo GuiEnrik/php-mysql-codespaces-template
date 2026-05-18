@@ -1,7 +1,7 @@
 FROM php:8.2-apache
 
 ENV DEBIAN_FRONTEND=noninteractive
-ENV APACHE_DOCUMENT_ROOT=/workspaces/app/htdocs
+ENV APACHE_DOCUMENT_ROOT=/workspaces/htdocs
 ENV PHPMYADMIN_VERSION=5.2.2
 
 RUN apt-get update && apt-get install -y \
