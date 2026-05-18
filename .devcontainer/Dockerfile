@@ -61,6 +61,14 @@ RUN printf '%s\n' \
     '#!/bin/bash' \
     'set -e' \
     '' \
+    'PROJECT_ROOT="${PROJECT_ROOT:-$(find /workspaces -mindepth 2 -maxdepth 2 -type d -name htdocs -print -quit | sed "s!/htdocs$!!")}"' \
+    'APACHE_DOCUMENT_ROOT="${PROJECT_ROOT}/htdocs"' \
+    'if [ -d "$APACHE_DOCUMENT_ROOT" ]; then' \
+    '    sed -ri "s!DocumentRoot .*!DocumentRoot ${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/sites-available/000-default.conf' \
+    '    printf "%s\n" "<Directory ${APACHE_DOCUMENT_ROOT}>" "    Options Indexes FollowSymLinks" "    AllowOverride All" "    Require all granted" "</Directory>" > /etc/apache2/conf-available/project-docroot.conf' \
+    '    a2enconf project-docroot >/dev/null' \
+    'fi' \
+    '' \
     'service mariadb start' \
     '' \
     'for i in {1..30}; do' \

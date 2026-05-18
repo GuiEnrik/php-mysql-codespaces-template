@@ -1,6 +1,20 @@
 #!/bin/bash
 set -e
 
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+APACHE_DOCUMENT_ROOT="$PROJECT_ROOT/htdocs"
+
+sed -ri "s!DocumentRoot .*!DocumentRoot ${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/sites-available/000-default.conf
+
+printf '%s\n' \
+    "<Directory ${APACHE_DOCUMENT_ROOT}>" \
+    "    Options Indexes FollowSymLinks" \
+    "    AllowOverride All" \
+    "    Require all granted" \
+    "</Directory>" \
+    > /etc/apache2/conf-available/project-docroot.conf
+a2enconf project-docroot >/dev/null
+
 if ! mysqladmin ping --silent >/dev/null 2>&1; then
     install -m 755 -o mysql -g root -d /run/mysqld
     start-stop-daemon --start --background --chuid mysql --exec /usr/sbin/mariadbd -- \
@@ -36,4 +50,10 @@ GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 SQL
 
-apache2ctl start
+if apache2ctl -t; then
+    if apache2ctl status >/dev/null 2>&1; then
+        apache2ctl graceful
+    else
+        apache2ctl start
+    fi
+fi
