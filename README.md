@@ -92,7 +92,7 @@ https://NOME-DO-CODESPACE-80.app.github.dev/conecta.php
 Note que foram usados esses dados no código PHP ao MariaDB dentro do Codespace:
 
 ```text
-Host: localhost ou 127.0.0.1
+Host: 127.0.0.1
 Porta: 3306
 Usuario: root
 Senha: em branco
